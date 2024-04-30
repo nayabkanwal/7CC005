@@ -1,40 +1,32 @@
-# Simple To-Do List Application Explanation
+# Simple To-Do List Application with PHP and JavaScript Integration
 
-This document explains the JavaScript code used in a simple to-do list application. The application allows users to add tasks, mark them as completed, and filter the list based on the task status.
+This document explains the integration of JavaScript and PHP in a simple to-do list application. The application allows users to add tasks, mark them as completed, and filter the list based on the task status. The data is stored in the server session, allowing persistence across page reloads.
 
-## JavaScript Functions
+## PHP Backend (todo.php)
 
-### `addItem()`
+The PHP script handles storing and retrieving tasks using session storage. It supports two HTTP methods:
 
-This function is triggered when the user clicks the "Add Item" button. It reads the value from the text input (`new-item`), adds a new item to the `items` array if the input is not empty, clears the input field, and updates the list display.
+- **GET**: Fetches and returns the list of tasks from the session.
+- **POST**: Adds a new task to the session and returns the updated list.
 
-**Key Concepts:**
-- **DOM Manipulation:** Accessing and modifying HTML elements using `document.getElementById()` and modifying `input.value`.
-- **Array Operations:** Adding an object to an array with `push()`.
+The tasks are stored in an associative array with each task having a 'text' and a 'completed' status.
 
-### `toggleCompletion(index)`
+## JavaScript Integration (script.js)
 
-This function is called when a user clicks on an item in the list. It toggles the `completed` status of the item at the specified index and updates the list display.
+### Key Functions:
 
-**Key Concepts:**
-- **Event Handling:** Using an `onclick` event to run a function.
-- **State Management:** Modifying the state of an item in the array.
+- **loadItems()**: Fetches the current list of tasks from the server using a GET request and updates the UI.
+- **addItem()**: Sends a new task to the server using a POST request and updates the UI with the returned list.
+- **toggleCompletion()**: Toggles the completion status of a task. This change is handled locally and reflected immediately in the UI.
+- **updateList()**: Updates the HTML list based on the tasks array and current filter setting.
+- **filterList()**: Sets the filter for displaying tasks and updates the list accordingly.
 
-### `updateList()`
+### Event Handling and DOM Manipulation:
 
-This function re-renders the list based on the `items` array and the current `filter`. It first clears the current list, then iterates over the `items` array, and adds each item to the list if it matches the current filter.
-
-**Key Concepts:**
-- **Conditional Rendering:** Using conditions to decide which items to display.
-- **DOM Manipulation:** Creating and modifying HTML elements dynamically with `document.createElement()` and `appendChild()`.
-
-### `filterList(mode)`
-
-Called when a user clicks one of the filter buttons ("Show All", "Show Completed", "Show Active"). It sets the `filter` state and updates the list based on this filter.
-
-**Key Concepts:**
-- **Event Handling and State Management:** Setting a state based on user interaction and using it to influence app behavior.
+- Tasks can be added by interacting with the input field and add button.
+- The completion status of tasks can be toggled by clicking on the task in the list.
+- Filters can be applied to view all tasks, only completed, or active tasks using the filter buttons.
 
 ## Summary
 
-This JavaScript code demonstrates fundamental concepts such as event handling, DOM manipulation, and state management in a simple web application. It shows how to interact with the DOM to read user input, respond to user actions, and update the UI accordingly.
+This application demonstrates a simple but effective use of PHP and JavaScript to manage a to-do list with session-based persistence and dynamic client-side interactions. It showcases fundamental concepts such as AJAX requests, session management, and DOM manipulation.
