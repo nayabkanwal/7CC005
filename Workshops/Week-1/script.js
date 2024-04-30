@@ -1,12 +1,33 @@
 let items = [];
-let filter = 'all';
+
+function loadItems() {
+    fetch('todo.php')
+        .then(response => response.json())
+        .then(data => {
+            items = data;
+            updateList();
+        })
+        .catch(error => console.error('Error:', error));
+}
 
 function addItem() {
     const input = document.getElementById('new-item');
     if (input.value.trim() !== '') {
-        items.push({ text: input.value, completed: false });
+        fetch('todo.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ text: input.value })
+        })
+        .then(response => response.json())
+        .then(data => {
+            items = data;
+            updateList();
+        })
+        .catch(error => console.error('Error:', error));
+
         input.value = '';
-        updateList();
     }
 }
 
@@ -15,21 +36,4 @@ function toggleCompletion(index) {
     updateList();
 }
 
-function updateList() {
-    const list = document.getElementById('items-list');
-    list.innerHTML = '';
-    items.forEach((item, index) => {
-        if (filter === 'all' || (filter === 'completed' && item.completed) || (filter === 'active' && !item.completed)) {
-            const itemElement = document.createElement('li');
-            itemElement.textContent = item.text;
-            itemElement.style.textDecoration = item.completed ? 'line-through' : 'none';
-            itemElement.onclick = () => toggleCompletion(index);
-            list.appendChild(itemElement);
-        }
-    });
-}
-
-function filterList(mode) {
-    filter = mode;
-    updateList();
-}
+document.addEventListener('DOMContentLoaded', loadItems);
