@@ -15,7 +15,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         }
         echo json_encode($_SESSION['items']);
         break;
-    
+
     case 'GET':
         echo json_encode($_SESSION['items']);
         break;
