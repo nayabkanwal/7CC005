@@ -25,11 +25,10 @@ The application allows users to perform CRUD operations on "posts" where each po
 
 ### Installation
 
-1. **Clone the Repository**
-   ```bash
-   git clone https://nayabkanwal/7CC005/new/main/Workshops/Week-4.git
-   cd your-project-directory
-   ```
+1. **Download Code Files and Add them to Specific folders**
+  - Add `routes/web.php` to `routes` folder as it will contain the routes for site
+  - Add `posts/files` to `resources/views/posts` as they will be the views of site
+  - Add `PostController.php` to `app/Http/Controllers/PostController.php` as it will be the main controller of the website
 
 2. **Install Dependencies**
    ```bash
